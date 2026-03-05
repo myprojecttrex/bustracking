@@ -175,7 +175,7 @@ const userIcon = new L.Icon({
 
 // ── Distance (Haversine) ───────────────────────────────────
 function getDistanceKm(lat1, lon1, lat2, lon2) {
-  const R    = 6371;
+  const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
   const a =
@@ -196,7 +196,7 @@ function Recenter({ lat, lng }) {
 // ── Main Component ─────────────────────────────────────────
 export default function MapView({ from, to }) {
   const [userLoc, setUserLoc] = useState(null);
-  const [buses, setBuses]     = useState([]); // ✅ array of buses from Firebase
+  const [buses, setBuses] = useState([]); // ✅ array of buses from Firebase
 
   const RADIUS_KM = 80; // match areaUtils.js
 
@@ -237,19 +237,19 @@ export default function MapView({ from, to }) {
 
           // ✅ Only show buses updated in last 5 minutes
           const lastUpdate = driver.updatedAt || 0;
-          const ageMin     = (Date.now() - lastUpdate) / 60000;
+          const ageMin = (Date.now() - lastUpdate) / 60000;
           if (ageMin > 5) return;
 
           activeBuses.push({
             tripCode,
             driverId,
-            lat:      driver.latitude,
-            lng:      driver.longitude,
-            speed:    driver.speed || 0,
-            busNo:    trip.busNo   || "Unknown Bus",
-            from:     trip.from    || "—",
-            to:       trip.to      || "—",
-            ageMin:   ageMin.toFixed(1),
+            lat: driver.latitude,
+            lng: driver.longitude,
+            speed: driver.speed || 0,
+            busNo: trip.busNo || "Unknown Bus",
+            from: trip.from || "—",
+            to: trip.to || "—",
+            ageMin: ageMin.toFixed(1),
           });
         });
       });
@@ -299,7 +299,7 @@ export default function MapView({ from, to }) {
 
       <MapContainer
         center={[userLoc.lat, userLoc.lng]}
-        zoom={13}
+        zoom={10} // Zoomed out slightly to see more of the radius
         style={{ height: "80vh", width: "100%" }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
